@@ -1,0 +1,31 @@
+services:
+  auth:
+    image: auth
+    depends_on:
+      - db
+    environment:
+      SERVER_PORT: 3000
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: db
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: postgres
+      DB_RETRIES: 10
+      SECRET_KEY: MIqSERB0Zoww6bhTj2Wzjn1Znuqwmj3/m0ktqfN3Zz/mcMOMMtbU9zegSSepbxCcb1qbVcnWXlqVYO88
+      ACCESS_EXPIRES_SECONDS: 1000000
+      REFRESH_EXPIRES_SECONDS: 10000000
+      SMTP_EMAIL: test@mail.com
+      SMTP_PASSWORD:
+      SMTP_HOST: mail
+      SMTP_PORT: 25
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
